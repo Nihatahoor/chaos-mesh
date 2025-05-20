@@ -46,7 +46,7 @@ enableCtrlServer: true
 
 images:
   # images.registry is the global container registry for the images, you could replace it with your self-hosted container registry.
-  registry: "ghcr.io"
+  registry: "quay.io"
   # images.tag is the global image tag (for example, semiVer with prefix v, or latest).
   tag: "latest"
 
@@ -75,9 +75,9 @@ controllerManager:
   # image would be constructed by <registry>/<repository>:<tag>
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-controller-manager
-    repository: chaos-mesh/chaos-mesh
+    repository: mtahoor/chaos-mesh
     # override global tag, empty value means using the global images.tag
     tag: ""
   # Image pull policy
@@ -155,9 +155,9 @@ chaosDaemon:
   # image would be constructed by <registry>/<repository>:<tag>
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-daemon
-    repository: chaos-mesh/chaos-daemon
+    repository: mtahoor/chaos-daemon
     # empty tag means using the global images.tag
     tag: ""
   # Image pull policy
@@ -277,9 +277,9 @@ dashboard:
   serviceAccount: chaos-dashboard
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-dashboard
-    repository: chaos-mesh/chaos-dashboard
+    repository: mtahoor/chaos-dashboard
     # override global tag, empty value means using the global images.tag
     tag: ""
   # Image pull policy
