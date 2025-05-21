@@ -79,7 +79,7 @@ controllerManager:
     # repository part for image of chaos-controller-manager
     repository: mtahoor/chaos-mesh
     # override global tag, empty value means using the global images.tag
-    tag: ""
+    tag: "v1.0.0"
   # Image pull policy
   imagePullPolicy: IfNotPresent
 
