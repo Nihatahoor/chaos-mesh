@@ -159,7 +159,7 @@ chaosDaemon:
     # repository part for image of chaos-daemon
     repository: mtahoor/chaos-daemon
     # empty tag means using the global images.tag
-    tag: ""
+    tag: "latest"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # The port which grpc server listens on.
@@ -281,7 +281,7 @@ dashboard:
     # repository part for image of chaos-dashboard
     repository: mtahoor/chaos-dashboard
     # override global tag, empty value means using the global images.tag
-    tag: ""
+    tag: "v1.0.0"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # securityMode requires user to provide credentials on Chaos Dashboard, instead of using chaos-dashboard service account
@@ -440,7 +440,7 @@ dnsServer:
     # repository part for image of chaos-dns-server
     repository: chaos-mesh/chaos-coredns
     # override global tag, empty value means using the global images.tag
-    tag: "v0.2.6"
+    tag: "v1.0.0-s390x"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # Customized priorityClassName for chaos-dns-server
