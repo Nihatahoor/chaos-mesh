@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        arch: [amd64, arm64]
+        arch: [amd64, arm64, s390x]
         image: [dev, build]
     outputs:
       image_tag: ${{ steps.image_tag.outputs.image_tag }}
