@@ -23,8 +23,10 @@ jobs:
     outputs:
       image_tag: ${{ steps.image_tag.outputs.image_tag }}
     runs-on: ${{ fromJSON('{"s390x":"ubuntu-latest", "arm64":"github-arm64-2c-8gb"}')[matrix.arch] }}
-
+    
     steps:
+      - name: Debug arch
+        run: echo "Arch is ${{ matrix.arch }}"
       - uses: actions/checkout@v4
         with:
           # It requires all the tags and branches to generate the correct GitVersion with `hack/version.sh`.
