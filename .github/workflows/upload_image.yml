@@ -22,7 +22,7 @@ jobs:
           [chaos-daemon, chaos-mesh, chaos-dashboard, chaos-kernel, chaos-dlv]
     outputs:
       image_tag: ${{ steps.image_tag.outputs.image_tag }}
-    runs-on: ${{ fromJSON('{"amd64":"ubuntu-22.04", "arm64":"github-arm64-2c-8gb"}')[matrix.arch] }}
+    runs-on: ${{ fromJSON('{"s390x":"ubuntu-22.04", "arm64":"github-arm64-2c-8gb"}')[matrix.arch] }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -76,7 +76,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           # ${VAR,,} convert VAR to lower case
-          docker push ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-$ARCH
+          docker push quay.io/mtahoor/chaosmesh-s390x/$IMAGE:$IMAGE_TAG-$ARCH
 
   upload-manifest:
     needs: build-specific-architecture
@@ -98,12 +98,12 @@ jobs:
         run: |
           # ${VAR,,} convert VAR to lower case
           docker manifest create ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-amd64 \
+            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-s390x64 \
             ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64
 
           docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
             ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-amd64 \
-            --os linux --arch amd64
+            --os linux --arch s390x64
           docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
             ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64 \
             --os linux --arch arm64
@@ -150,20 +150,20 @@ jobs:
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         run: |
-          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature ghcr.io-chaos-mesh-chaos-mesh-$IMAGE_TAG.sig
-          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature ghcr.io-chaos-mesh-chaos-daemon-$IMAGE_TAG.sig
-          cosign sign --key env://COSIGN_PRIVATE_KEY ghcr.io/chaos-mesh/chaos-dashboard:$IMAGE_TAG --output-signature ghcr.io-chaos-mesh-chaos-dashboard-$IMAGE_TAG.sig
-          cosign sign --key env://COSIGN_PRIVATE_KEY ghcr.io/chaos-mesh/chaos-kernel:$IMAGE_TAG --output-signature ghcr.io-chaos-mesh-chaos-kernel-$IMAGE_TAG.sig
+          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature quay.io-chaos-mesh-chaos-mesh-$IMAGE_TAG.sig
+          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature quay.io-chaos-mesh-chaos-daemon-$IMAGE_TAG.sig
+          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature quay.io-chaos-mesh-chaos-dashboard-$IMAGE_TAG.sig
+          cosign sign --key env://COSIGN_PRIVATE_KEY quay.io/mtahoor/chaosmesh-s390x:$IMAGE_TAG --output-signature quay.io-chaos-mesh-chaos-kernel-$IMAGE_TAG.sig
           cosign public-key --key env://COSIGN_PRIVATE_KEY > cosign.pub
       - name: Upload cosign.pub and sigs
         uses: softprops/action-gh-release@v2
         with:
           files: |
             cosign.pub
-            ghcr.io-chaos-mesh-chaos-mesh-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
-            ghcr.io-chaos-mesh-chaos-daemon-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
-            ghcr.io-chaos-mesh-chaos-dashboard-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
-            ghcr.io-chaos-mesh-chaos-kernel-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
+            quay.io-chaos-mesh-chaos-mesh-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
+            quay.io-chaos-mesh-chaos-daemon-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
+            quay.io-chaos-mesh-chaos-dashboard-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
+            quay.io-chaos-mesh-chaos-kernel-${{ needs.build-specific-architecture.outputs.image_tag }}.sig
 
   sbom:
     needs: build-specific-architecture
