@@ -114,7 +114,7 @@ def main():
                 "docker",
                 "buildx",
                 "build",
-                "--load",
+                "--push",
                 "--cache-to",
                 f"type=local,dest={cache_dir}"]
             if os.getenv("DISABLE_CACHE_FROM") != "1":
@@ -126,7 +126,7 @@ def main():
                     "docker",
                     "buildx",
                     "build",
-                    "--load",
+                    "--push",
                     "--platform",
                     f"linux/{os.getenv('TARGET_PLATFORM')}"]
             else:
