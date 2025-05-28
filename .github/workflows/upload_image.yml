@@ -19,7 +19,7 @@ jobs:
       matrix:
         arch: [s390x]
         image:
-          [chaos-daemon, chaos-mesh, chaos-dashboard, chaos-kernel, chaos-dlv]
+          [chaos-daemon, chaos-mesh, chaos-dashboard, chaos-kernel ]
     outputs:
       image_tag: ${{ steps.image_tag.outputs.image_tag }}
     runs-on: ${{ fromJSON('{"s390x":"ubuntu-latest", "arm64":"github-arm64-2c-8gb"}')[matrix.arch] }}
@@ -98,7 +98,7 @@ jobs:
     strategy:
       matrix:
         image:
-          [chaos-daemon, chaos-mesh, chaos-dashboard, chaos-kernel, chaos-dlv]
+          [chaos-daemon, chaos-mesh, chaos-dashboard, chaos-kernel]
     env:
       IMAGE_TAG: ${{ needs.build-specific-architecture.outputs.image_tag }}
       GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
