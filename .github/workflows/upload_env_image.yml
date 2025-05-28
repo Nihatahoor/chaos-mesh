@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        arch: [amd64, arm64, s390x]
+        arch: [s390x]
         image: [dev, build]
     outputs:
       image_tag: ${{ steps.image_tag.outputs.image_tag }}
@@ -39,9 +39,9 @@ jobs:
       - name: Log in to GitHub Docker Registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: quay.io
+          username: mtahoor+chaosdog
+          password: T1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T
 
       - name: Build Chaos Mesh Env
         env:
@@ -69,7 +69,7 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           # ${VAR,,} convert VAR to lower case
-          docker push ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-$ARCH
+          docker push quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-$ARCH
 
   upload-manifest:
     permissions:
@@ -88,13 +88,13 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           # ${VAR,,} convert VAR to lower case
-          docker manifest create ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-amd64 \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64
+          docker manifest create quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-s390x \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64
 
           docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
             ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-amd64 \
-            --os linux --arch amd64
+            --os linux --arch s390x
           docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
             ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64 \
             --os linux --arch arm64
@@ -102,9 +102,9 @@ jobs:
       - name: Log in to GitHub Docker Registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: quay.io
+          username: mtahoor+chaosdog
+          password: T1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T
 
       - name: Upload Chaos Mesh Env
         env:
