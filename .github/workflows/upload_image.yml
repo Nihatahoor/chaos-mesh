@@ -72,8 +72,8 @@ jobs:
           # ${VAR,,} convert VAR to lower case
           make -B \
             TARGET_PLATFORM=$ARCH \
-            IMAGE_TAG=chaosmesh-s390x/$IMAGE:${IMAGE_TAG}-$ARCH \
-            IMAGE_REPO=quay.io/mtahoor \
+            IMAGE_TAG=${IMAGE_TAG}-$ARCH \
+            IMAGE_REPO=quay.io/mtahoor/chaosmesh-s390x \
             IMAGE_DEV_ENV_BUILD=1 \
             IMAGE_BUILD_ENV_BUILD=1 \
             UI=$UI \
