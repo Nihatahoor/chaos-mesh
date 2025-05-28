@@ -19,7 +19,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     rm -rf /var/lib/apt/lists/*
 RUN npm install pnpm@9 -g
 
-ARG TARGET_PLATFORM=amd64
+ARG TARGET_PLATFORM=s390x
 
 RUN curl -vvv https://dl.google.com/go/go1.22.10.linux-$TARGET_PLATFORM.tar.gz | tar -xz -C /usr/local
 ENV PATH "/usr/local/go/bin:${PATH}"
