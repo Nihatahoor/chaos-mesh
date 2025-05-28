@@ -65,7 +65,7 @@ def get_image_full_name(name):
     get the full tag of an image
     """
     tag = get_image_tag(name)
-    return f"quay.io/mtahoor/{name}:{tag}"
+    return f"quay.io/mtahoor/chaosmesh-s390x/{name}:{tag}"
 
 
 def pass_env_to_build_arg(cmd, arg_name):
