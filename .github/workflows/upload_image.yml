@@ -48,7 +48,7 @@ jobs:
         with:
           registry: Quay.io
           username: "mtahoor+chaosdog"
-          password: "rQSn4UcXTLkpcij20vwtK4kkyyklXjmB94VA6wQkGmo0Q8ZliFhRSVAwInnHezuTT1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T"
+          password: "T1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T"
 
       - name: Build Chaos Mesh
         env:
