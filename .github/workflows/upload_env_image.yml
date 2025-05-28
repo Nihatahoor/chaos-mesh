@@ -36,12 +36,10 @@ jobs:
 
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
 
-      - name: Log in to GitHub Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: quay.io
-          username: mtahoor+chaosdog
-          password: T1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T
+      -  name: Login to Quay.io Container registry
+         run: |
+             echo "MDTHK6Y6SST6HKJ43NKHUUEF1XJQ9WGUTPOK8DG2887ATCK1MSTF6H7LK4A3H22D" | docker login quay.io -u mtahoor+chaosdog --password-stdin
+
 
       - name: Build Chaos Mesh Env
         env:
@@ -92,19 +90,17 @@ jobs:
             quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-s390x \
             quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64
 
-          docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-amd64 \
+          docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-amd64 \
             --os linux --arch s390x
           docker manifest annotate ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64 \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-arm64 \
             --os linux --arch arm64
 
-      - name: Log in to GitHub Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: quay.io
-          username: mtahoor+chaosdog
-          password: T1XMO77YYUVC2XNV0ZHEQE6EAMCMO59BNIRMHHDVLEM9QQK78F0QGQ1DN01H1T6T
+      -  name: Login to Quay.io Container registry
+         run: |
+          echo "MDTHK6Y6SST6HKJ43NKHUUEF1XJQ9WGUTPOK8DG2887ATCK1MSTF6H7LK4A3H22D" | docker login quay.io -u mtahoor+chaosdog --password-stdin
+
 
       - name: Upload Chaos Mesh Env
         env:
@@ -113,4 +109,4 @@ jobs:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           # ${VAR,,} convert VAR to lower case
-          docker manifest push ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG
+          docker manifest push quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG
