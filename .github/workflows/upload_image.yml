@@ -105,14 +105,14 @@ jobs:
         run: |
           # ${VAR,,} convert VAR to lower case
           docker manifest create quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-s390x64 \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-s390x64 \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64
 
           docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-amd64 \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-amd64 \
             --os linux --arch s390x64
           docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
-            ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64 \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64 \
             --os linux --arch arm64
 
       - name: Login to Quay.io Container registry
