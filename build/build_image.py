@@ -142,7 +142,7 @@ def main():
         cmd += ["--build-arg", f"TARGET_PLATFORM={target_platform.platform}"]
         cmd += ["-t", image_full_name, args.path[0]]
     else:
-        cmd = ["podman", "pull", quay.io/mtahoor/build-env:latest]
+        cmd = ["podman", "pull", "quay.io/mtahoor/build-env:latest"]
 
     print(" ".join(cmd))
     subprocess.run(cmd, env=env, check=True)
