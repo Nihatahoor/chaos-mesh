@@ -65,7 +65,7 @@ def get_image_full_name(name):
     get the full tag of an image
     """
     tag = get_image_tag(name)
-    return f"ghcr.io/chaos-mesh/{name}:{tag}"
+    return f"quay.io/mtahoor/{name}:{tag}"
 
 
 def pass_env_to_build_arg(cmd, arg_name):
@@ -142,7 +142,7 @@ def main():
         cmd += ["--build-arg", f"TARGET_PLATFORM={target_platform.platform}"]
         cmd += ["-t", image_full_name, args.path[0]]
     else:
-        cmd = ["docker", "pull", image_full_name]
+        cmd = ["podman", "pull", "quay.io/mtahoor/build-env"]
 
     print(" ".join(cmd))
     subprocess.run(cmd, env=env, check=True)

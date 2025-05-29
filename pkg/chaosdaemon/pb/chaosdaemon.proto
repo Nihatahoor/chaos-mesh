@@ -1,8 +1,10 @@
 syntax = "proto3";
 
 package pb;
+option go_package = "github.com/chaos-mesh/chaos-mesh/pkg/chaosdaemon/pb";
 
 import "google/protobuf/empty.proto";
+//import "upb/test/empty.proto";
 
 service ChaosDaemon {
   rpc SetTcs(TcsRequest) returns (google.protobuf.Empty) {}
@@ -32,6 +34,7 @@ service ChaosDaemon {
   rpc InstallJVMRules(InstallJVMRulesRequest) returns (google.protobuf.Empty) {}
 
   rpc UninstallJVMRules(UninstallJVMRulesRequest) returns (google.protobuf.Empty) {}
+  rpc RecoverTimeOffset(RecoverTimeOffsetRequest) returns (RecoverTimeOffsetResponse);
 }
 
 message TcHandle {
@@ -318,3 +321,22 @@ message ApplyBlockChaosResponse {
 message RecoverBlockChaosRequest {
   int32 injection_id = 1;
 }
+
+
+message RecoverTimeOffsetRequest {}
+
+message RecoverTimeOffsetResponse {
+  string message = 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+

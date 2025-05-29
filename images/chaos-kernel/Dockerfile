@@ -30,6 +30,13 @@ RUN git clone --depth 1 --branch v0.23.0 https://github.com/iovisor/bcc.git
 WORKDIR /bcc/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/usr && make -j${MAKE_JOBS} && make install
 
+RUN cd /tmp && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.22.0/cmake-3.22.0.tar.gz && \
+    tar -zxvf cmake-3.22.0.tar.gz && \
+    cd cmake-3.22.0 && \
+    ./bootstrap && make -j$(nproc) && make install && \
+    cmake --version
+
 WORKDIR /
 
 RUN git clone https://github.com/chaos-mesh/bpfki

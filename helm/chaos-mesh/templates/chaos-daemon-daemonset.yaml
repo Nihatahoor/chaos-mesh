@@ -52,7 +52,7 @@ spec:
       {{- end }}
       hostPID: true
       {{- if .Values.chaosDaemon.priorityClassName }}
-      priorityClassName: {{ .Values.chaosDaemon.priorityClassName }}
+      priorityClassName: "{{ .Values.chaosDaemon.priorityClassName }}"
       {{- end }}
       {{- if .Values.imagePullSecrets }}
       imagePullSecrets: {{ toYaml .Values.imagePullSecrets | nindent 8 }}

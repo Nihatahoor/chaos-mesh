@@ -14,6 +14,7 @@
 //
 //go:build cgo
 
+
 package ptrace
 
 /*
