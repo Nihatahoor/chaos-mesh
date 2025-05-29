@@ -109,7 +109,7 @@ jobs:
         run: |
           # ${VAR,,} convert VAR to lower case
           docker manifest create quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
-            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-s390x64 \
+            quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-s390x \
             quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64
 
           docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
@@ -149,9 +149,12 @@ jobs:
         uses: sigstore/cosign-installer@main
         with:
           cosign-release: "v1.13.1"
-      -  name: Login to Quay.io Container registry
-         run: |
-            echo "MDTHK6Y6SST6HKJ43NKHUUEF1XJQ9WGUTPOK8DG2887ATCK1MSTF6H7LK4A3H22D" | docker login quay.io -u mtahoor+chaosdog --password-stdin
+      - name: Log in to Quay.io
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
 
       - name: Sign Chaos Mesh Container images
         env:
