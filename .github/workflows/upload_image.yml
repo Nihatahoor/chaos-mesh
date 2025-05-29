@@ -56,6 +56,12 @@ jobs:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
+      - name: Dummy push to initialize Quay repo
+        run: |
+         echo "FROM busybox\nCMD echo Init push" > Dockerfile.init
+         docker build -t quay.io/mtahoor/chaosmesh-s390x/init-test -f Dockerfile.init .
+         docker login quay.io -u=mtahoor+chaosdog -p=${{ secrets.QUAY_PASSWORD }}
+         docker push quay.io/mtahoor/chaosmesh-s390x/init-test
 
       - name: Build Chaos Mesh
         env:
