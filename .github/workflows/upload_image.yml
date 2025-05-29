@@ -63,7 +63,7 @@ jobs:
           CMD echo Init push
           EOF
           docker build -t quay.io/mtahoor/chaosmesh-s390x/init-test -f Dockerfile.init .
-          docker login quay.io -u=mtahoor+chaosdog -p=${{ secrets.QUAY_PASSWORD }}
+          docker login quay.io -u=${{ secrets.QUAY_USERNAME }} -p=${{ secrets.QUAY_PASSWORD }}
           docker push quay.io/mtahoor/chaosmesh-s390x/init-test
 
 
