@@ -62,15 +62,7 @@ jobs:
             IMAGE_TAG=$IMAGE_TAG-$ARCH \
             image-$IMAGE-env
 
-      - name: Upload Chaos Mesh Env
-        env:
-          IMAGE_TAG: ${{ steps.image_tag.outputs.image_tag }}
-          ARCH: ${{ matrix.arch }}
-          IMAGE: ${{ matrix.image }}
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: |
-          # ${VAR,,} convert VAR to lower case
-          docker push quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE-env:$IMAGE_TAG-$ARCH
+      
 
   upload-manifest:
     permissions:
