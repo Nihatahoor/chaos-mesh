@@ -130,7 +130,7 @@ jobs:
           IMAGE: ${{ matrix.image }}
         run: |
           # ${VAR,,} convert VAR to lower case
-          docker manifest push ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG
+          docker manifest push quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG
 
   sign:
     needs:
