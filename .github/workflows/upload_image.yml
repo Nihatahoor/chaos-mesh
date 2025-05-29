@@ -89,16 +89,7 @@ jobs:
             UI=$UI \
             image-$IMAGE
 
-      - name: Upload Chaos Mesh
-        env:
-          IMAGE_TAG: ${{ steps.image_tag.outputs.image_tag }}
-          ARCH: ${{ matrix.arch }}
-          IMAGE: ${{ matrix.image }}
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: |
-          # ${VAR,,} convert VAR to lower case
-          docker push quay.io/mtahoor/chaosmesh-s390x/$IMAGE:$IMAGE_TAG-$ARCH
-
+      
   upload-manifest:
     needs: build-specific-architecture
     runs-on: ubuntu-22.04
