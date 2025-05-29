@@ -114,7 +114,7 @@ jobs:
 
           docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
             quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-amd64 \
-            --os linux --arch s390x64
+            --os linux --arch s390x
           docker manifest annotate quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG \
             quay.io/${GITHUB_REPOSITORY_OWNER,,}/$IMAGE:$IMAGE_TAG-arm64 \
             --os linux --arch arm64
