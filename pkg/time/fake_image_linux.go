@@ -24,7 +24,7 @@ import (
 
 	"github.com/chaos-mesh/chaos-mesh/pkg/cerr"
 	"github.com/chaos-mesh/chaos-mesh/pkg/mapreader"
-	"github.com/chaos-mesh/chaos-mesh/pkg/ptrace"
+//	"github.com/chaos-mesh/chaos-mesh/pkg/ptrace"
 )
 
 // vdsoEntryName is the name of the vDSO entry

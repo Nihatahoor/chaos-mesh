@@ -46,14 +46,14 @@ enableCtrlServer: true
 
 images:
   # images.registry is the global container registry for the images, you could replace it with your self-hosted container registry.
-  registry: "ghcr.io"
+  registry: "quay.io"
   # images.tag is the global image tag (for example, semiVer with prefix v, or latest).
   tag: "latest"
 
 ## Optional array of imagePullSecrets containing private registry credentials
 ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-imagePullSecrets: []
-# - name: secretName
+imagePullSecrets: 
+  - name: quay-secret
 
 controllerManager:
   # securityContext if needed
@@ -75,11 +75,11 @@ controllerManager:
   # image would be constructed by <registry>/<repository>:<tag>
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-controller-manager
-    repository: chaos-mesh/chaos-mesh
+    repository: mtahoor/chaos-mesh
     # override global tag, empty value means using the global images.tag
-    tag: ""
+    tag: "v1.0.0"
   # Image pull policy
   imagePullPolicy: IfNotPresent
 
@@ -155,11 +155,11 @@ chaosDaemon:
   # image would be constructed by <registry>/<repository>:<tag>
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-daemon
-    repository: chaos-mesh/chaos-daemon
+    repository: mtahoor/chaos-daemon
     # empty tag means using the global images.tag
-    tag: ""
+    tag: "latest"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # The port which grpc server listens on.
@@ -277,11 +277,11 @@ dashboard:
   serviceAccount: chaos-dashboard
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-dashboard
-    repository: chaos-mesh/chaos-dashboard
+    repository: mtahoor/chaos-dashboard
     # override global tag, empty value means using the global images.tag
-    tag: ""
+    tag: "v1.0.0"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # securityMode requires user to provide credentials on Chaos Dashboard, instead of using chaos-dashboard service account
@@ -436,11 +436,11 @@ dnsServer:
   # image would be constructed by <registry>/<repository>:<tag>
   image:
     # override global registry, empty value means using the global images.registry
-    registry: ""
+    registry: "quay.io"
     # repository part for image of chaos-dns-server
-    repository: chaos-mesh/chaos-coredns
+    repository: mtahoor/chaos-coredns
     # override global tag, empty value means using the global images.tag
-    tag: "v0.2.6"
+    tag: "v1.0.0-s390x"
   # Image pull policy
   imagePullPolicy: IfNotPresent
   # Customized priorityClassName for chaos-dns-server
